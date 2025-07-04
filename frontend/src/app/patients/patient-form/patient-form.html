@@ -1,0 +1,51 @@
+<div class="container mt-4">
+    <form [formGroup]="form" (ngSubmit)="submit()">
+        <div class="row g-3">
+            <div class="col-md-6">
+                <label>First Name</label>
+                <input formControlName="firstName" class="form-control" />
+            </div>
+            <div class="col-md-6">
+                <label>Last Name</label>
+                <input formControlName="lastName" class="form-control" />
+            </div>
+            <div class="col-md-6">
+                <label>Email</label>
+                <input formControlName="email" class="form-control" />
+            </div>
+            <div class="col-md-6">
+                <label>Phone Number</label>
+                <input formControlName="phoneNumber" class="form-control" />
+            </div>
+            <div class="col-md-6">
+                <label>Date of Birth</label>
+                <input type="date" formControlName="dob" class="form-control" />
+            </div>
+            <div class="col-md-12">
+                <label>Address</label>
+                <textarea formControlName="address" class="form-control"></textarea>
+            </div>
+            <div class="col-md-12">
+                <button class="btn btn-success mt-3" [disabled]="form.invalid">
+                    {{ id ? 'Update' : 'Add' }} Patient
+                </button>
+            </div>
+        </div>
+    </form>
+
+
+    <div class="toast-container position-fixed top-0 end-0 p-3" style="z-index: 1055;">
+        <div class="toast align-items-center text-white bg-success border-0" role="alert" aria-live="assertive"
+            aria-atomic="true" #successToast>
+            <div class="d-flex">
+                <div class="toast-body">
+                    {{ successMessage }}
+                </div>
+                <button type="button" class="btn-close btn-close-white me-2 m-auto" data-bs-dismiss="toast"
+                    aria-label="Close"></button>
+            </div>
+        </div>
+    </div>
+
+
+</div>

@@ -1,0 +1,73 @@
+<div class="container mt-4">
+    <div class="d-flex justify-content-between mb-3">
+        <input [(ngModel)]="search" (ngModelChange)="onSearchChange()" class="form-control w-50"
+            placeholder="Search by name or email" />
+
+        <a routerLink="/patients/add" class="btn btn-primary">Add Patient</a>
+        <a routerLink="/summary" class="btn btn-warning">Patient Summary</a>
+    </div>
+
+    <table class="table table-bordered table-striped">
+        <thead>
+            <tr>
+                <th>Name</th>
+                <th>Email</th>
+                <th>DOB</th>
+                <th>Actions</th>
+            </tr>
+        </thead>
+        <tbody>
+            <tr *ngFor="let p of paginatedPatients">
+
+                <td>{{ p.firstName }} {{ p.lastName }}</td>
+                <td>{{ p.email }}</td>
+                <td>{{ p.dob | date }}</td>
+                <td>
+                    <div class="btn-group-vertical d-flex gap-1">
+                        <a [routerLink]="['/patients/edit', p._id]" class="btn btn-warning btn-sm">
+                            <i class="bi bi-pencil"></i> Edit
+                        </a>
+
+                        <button (click)="delete(p._id!)" class="btn btn-danger btn-sm">
+                            <i class="bi bi-trash"></i> Delete
+                        </button>
+
+                        <button (click)="showVisits(p._id!)" class="btn btn-info btn-sm">
+                            <i class="bi bi-eye"></i>
+                            {{ selectedPatientId === p._id ? 'Hide Visits' : 'View Visits' }}
+                        </button>
+
+
+                        <a [routerLink]="['/visits/add']" [queryParams]="{ patientId: p._id }"
+                            class="btn btn-success btn-sm">
+                            <i class="bi bi-calendar-plus"></i> Visit Patient
+                        </a>
+                    </div>
+                </td>
+
+            </tr>
+        </tbody>
+    </table>
+
+
+    <nav *ngIf="totalPages > 1" class="mt-3">
+        <ul class="pagination justify-content-center">
+            <li class="page-item" [class.disabled]="currentPage === 1">
+                <button class="page-link" (click)="changePage(currentPage - 1)">Previous</button>
+            </li>
+            <li class="page-item" *ngFor="let page of [].constructor(totalPages); let i = index"
+                [class.active]="currentPage === i + 1">
+                <button class="page-link" (click)="changePage(i + 1)">{{ i + 1 }}</button>
+            </li>
+            <li class="page-item" [class.disabled]="currentPage === totalPages">
+                <button class="page-link" (click)="changePage(currentPage + 1)">Next</button>
+            </li>
+        </ul>
+    </nav>
+
+    <!-- Show visits below table -->
+    <div *ngIf="selectedPatientId" class="mt-5">
+        <h5>Visit History</h5>
+        <app-visit-list [patientId]="selectedPatientId"></app-visit-list>
+    </div>
+</div>

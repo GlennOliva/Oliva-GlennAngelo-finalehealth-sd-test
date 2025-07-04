@@ -1,0 +1,34 @@
+<div class="container mt-4">
+    <form [formGroup]="form" (ngSubmit)="submit()">
+        <div class="mb-3">
+            <label>Date</label>
+            <input type="date" formControlName="visitDate" class="form-control" />
+        </div>
+        <div class="mb-3">
+            <label>Type</label>
+            <select formControlName="visitType" class="form-control">
+                <option value="Home">Home</option>
+                <option value="Clinic">Clinic</option>
+                <option value="Telehealth">Telehealth</option>
+            </select>
+        </div>
+        <div class="mb-3">
+            <label>Notes</label>
+            <textarea formControlName="notes" class="form-control"></textarea>
+        </div>
+        <button class="btn btn-success">{{ visitId ? 'Update' : 'Add' }} Visit</button>
+    </form>
+
+
+    <div #successToast class="toast align-items-center text-bg-success border-0 position-fixed top-0 end-0 m-3"
+        role="alert" aria-live="assertive" aria-atomic="true" data-bs-delay="2000">
+        <div class="d-flex">
+            <div class="toast-body">
+                {{ successMessage }}
+            </div>
+            <button type="button" class="btn-close btn-close-white me-2 m-auto" data-bs-dismiss="toast"
+                aria-label="Close"></button>
+        </div>
+    </div>
+
+</div>

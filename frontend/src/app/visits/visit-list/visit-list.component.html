@@ -1,0 +1,25 @@
+<div class="mt-4">
+    <h5>Visits</h5>
+    <table class="table table-sm table-striped">
+        <thead>
+            <tr>
+                <th>Date</th>
+                <th>Type</th>
+                <th>Notes</th>
+                <th>Actions</th>
+            </tr>
+        </thead>
+        <tbody>
+            <tr *ngFor="let visit of visits">
+                <td>{{ visit.visitDate | date }}</td>
+                <td>{{ visit.visitType }}</td>
+                <td>{{ visit.notes }}</td>
+                <td>
+                    <a [routerLink]="['/visits/edit', visit._id]" [queryParams]="{ patientId: visit.patientId }"
+                        class="btn btn-sm btn-warning">Edit</a>
+                    <button (click)="deleteVisit(visit._id!)" class="btn btn-sm btn-danger">Delete</button>
+                </td>
+            </tr>
+        </tbody>
+    </table>
+</div>
